@@ -54,6 +54,8 @@ public class SimpleTest
             Query q = pm.newQuery("SELECT FROM mydomain.model.Person");
             FetchPlan fp = q.getFetchPlan();
             fp.addGroup("Person.all");
+            NucleusLogger.GENERAL.info(">> This should create an SQL selecting the FK column, but NOT joining across to the ADDRESS table.");
+            NucleusLogger.GENERAL.info(">> It will instantiate the Address object, but not populate it, other than its identity.");
             List<Person> results = q.executeList();
             for (Person p : results)
             {
