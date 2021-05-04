@@ -23,7 +23,7 @@ public class SimpleTest
             tx.begin();
 
             Person p1 = new Person(1, "First");
-            Address a = new Address(1, "Home");
+            Address a = new House(1, "Home", "street");
             p1.setAddress(a);
             pm.makePersistent(p1);
 
@@ -48,7 +48,7 @@ public class SimpleTest
         tx = pm.currentTransaction();
         try
         {
-            tx.begin();
+//            tx.begin();
 
             NucleusLogger.GENERAL.info(">> Querying");
             Query q = pm.newQuery("SELECT FROM mydomain.model.Person");
@@ -57,12 +57,13 @@ public class SimpleTest
             NucleusLogger.GENERAL.info(">> This should create an SQL selecting the FK column, but NOT joining across to the ADDRESS table.");
             NucleusLogger.GENERAL.info(">> It will instantiate the Address object, but not populate it, other than its identity.");
             List<Person> results = q.executeList();
+
             for (Person p : results)
             {
                 NucleusLogger.GENERAL.info(">> p=" + p);
             }
 
-            tx.commit();
+//            tx.commit();
         }
         catch (Throwable thr)
         {

@@ -1,5 +1,10 @@
 # jdo-fetch-fk-only
 
+Sample to demonstrate a problem with Abstract class representing N-1 relation with implicit transactions.  This causes infinite loop StackOverflows for some reason.
+Similarly, the "fetch-fk-only" does not seem to make any difference.
+
+---
+
 Sample showing usage of the member metadata extension "fetch-fk-only" used on a 1-1 (FK) field requesting that any retrieval only pull back the FK and avoid the join to the related object (table). This will instantiate the related object but just not populate it (other than its identity field(s)).
 
 The query is
@@ -15,3 +20,7 @@ So no JOIN is created. It then instantiates Person and Address objects.
     Object "mydomain.model.Address@379ab47b" (id="mydomain.model.Address:1") added to Level 2 cache (fields="[0]", version="")  
     Object "mydomain.model.Person@455351c4" (id="mydomain.model.Person:1") added to Level 2 cache (fields="[0, 1, 2]", version="")  
     p=Person [1] address=mydomain.model.Address@379ab47b  
+
+---
+
+However, using implicit transactions (ie: no defined `tx.begin()` or `tx.commit()`) causes an infinite loop when DN attempts to load the `Person` object. 

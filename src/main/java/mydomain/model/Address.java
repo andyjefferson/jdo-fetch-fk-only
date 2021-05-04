@@ -5,7 +5,8 @@ import javax.jdo.annotations.*;
 @PersistenceCapable(detachable="true")
 @FetchGroup(name="Address.all", members={@Persistent(name="id"), @Persistent(name="name")})
 @FetchGroup(name="Address.pk", members={@Persistent(name="id")})
-public class Address
+@Inheritance(strategy = InheritanceStrategy.SUBCLASS_TABLE)
+public abstract class Address
 {
     @PrimaryKey
     Long id;

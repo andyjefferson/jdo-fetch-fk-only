@@ -7,6 +7,8 @@
     <persistence-unit name="MyTest">
         <class>mydomain.model.Person</class>
         <class>mydomain.model.Address</class>
+        <class>mydomain.model.House</class>
+        <class>mydomain.model.POBox</class>
         <exclude-unlisted-classes />
 
         <properties>
